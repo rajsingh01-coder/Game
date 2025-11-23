@@ -1,10 +1,219 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
+    <style>
+* {
+  margin: 0;
+  padding: 0;
+}
+body {
+  background: rgb(73, 185, 15);
+  background: -moz-linear-gradient(
+    90deg,
+    rgba(73, 185, 15, 0.9641106442577031) 0%,
+    rgba(19, 200, 192, 0.7428221288515406) 78%
+  );
+  background: -webkit-linear-gradient(
+    90deg,
+    rgba(73, 185, 15, 0.9641106442577031) 0%,
+    rgba(19, 200, 192, 0.7428221288515406) 78%
+  );
+  background: linear-gradient(
+    90deg,
+    rgba(73, 185, 15, 0.9641106442577031) 0%,
+    rgba(19, 200, 192, 0.7428221288515406) 78%
+  );
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#49b90f",endColorstr="#13c8c0",GradientType=1);
+  text-align: center;
+}
+.container {
+  height: 70vh;
+  display: flex;
+
+  justify-content: center;
+  align-items: center;
+}
+.game {
+  height: 60vmin;
+  width: 60vmin;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 1.5vmin;
+}
+.box {
+  height: 18vmin;
+  width: 18vmin;
+  border-radius: 12px;
+  border: none;
+  
+  color: #b0413e;
+  font-size: 8vmin;
+  box-shadow: 0 0 1rem rgba(0, 0, 0, 0.1);
+}
+#reset-btn {
+  padding: 8px;
+  border: 1px solid black;
+  border-radius: 10px;
+  background-color: black;
+  color: white;
+  transition: 0.4s ease-in-out;
+}
+#reset-btn:hover {
+  background: rgb(73, 185, 15);
+  background: -moz-linear-gradient(
+    90deg,
+    rgba(73, 185, 15, 0.9641106442577031) 0%,
+    rgba(19, 200, 192, 0.7428221288515406) 78%
+  );
+  background: -webkit-linear-gradient(
+    90deg,
+    rgba(73, 185, 15, 0.9641106442577031) 0%,
+    rgba(19, 200, 192, 0.7428221288515406) 78%
+  );
+  background: linear-gradient(
+    90deg,
+    rgba(73, 185, 15, 0.9641106442577031) 0%,
+    rgba(19, 200, 192, 0.7428221288515406) 78%
+  );
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#49b90f",endColorstr="#13c8c0",GradientType=1);
+  color: black;
+  cursor: pointer;
+}
+#new-btn {
+  padding: 8px;
+  border: 1px solid black;
+  border-radius: 10px;
+  background-color: black;
+  color: white;
+  transition: 0.4s ease-in-out;
+  margin-top: 15px;
+}
+#new-btn:hover {
+  background: rgb(73, 185, 15);
+  background: -moz-linear-gradient(
+    90deg,
+    rgba(73, 185, 15, 0.9641106442577031) 0%,
+    rgba(19, 200, 192, 0.7428221288515406) 78%
+  );
+  background: -webkit-linear-gradient(
+    90deg,
+    rgba(73, 185, 15, 0.9641106442577031) 0%,
+    rgba(19, 200, 192, 0.7428221288515406) 78%
+  );
+  background: linear-gradient(
+    90deg,
+    rgba(73, 185, 15, 0.9641106442577031) 0%,
+    rgba(19, 200, 192, 0.7428221288515406) 78%
+  );
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#49b90f",endColorstr="#13c8c0",GradientType=1);
+  color: black;
+  cursor: pointer;
+}
+main h1 {
+    font-family: "Lilita One", serif;
+    font-weight: 400;
+    font-style: normal;
+    color: rgb(73,185,15);
+    color: -moz-linear-gradient(90deg, rgba(73,185,15,0.9641106442577031) 0%, rgba(19,200,192,0.7428221288515406) 78%);
+    color: -webkit-linear-gradient(90deg, rgba(73,185,15,0.9641106442577031) 0%, rgba(19,200,192,0.7428221288515406) 78%);
+    color: linear-gradient(90deg, rgba(73,185,15,0.9641106442577031) 0%, rgba(19,200,192,0.7428221288515406) 78%);
+filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#49b90f",endColorstr="#13c8c0",GradientType=1);
+}
+#msg {
+    color: rgb(73,185,15);
+    color: -moz-linear-gradient(90deg, rgba(73,185,15,0.9641106442577031) 0%, rgba(19,200,192,0.7428221288515406) 78%);
+    color: -webkit-linear-gradient(90deg, rgba(73,185,15,0.9641106442577031) 0%, rgba(19,200,192,0.7428221288515406) 78%);
+    color: linear-gradient(90deg, rgba(73,185,15,0.9641106442577031) 0%, rgba(19,200,192,0.7428221288515406) 78%);
+filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#49b90f",endColorstr="#13c8c0",GradientType=1);
+  
+  font-size: 5vmin;
+  font-family: sans-serif;
+}
+.msg-container {
+  height: 17vmin;
+}
+.hide {
+  display: none;
+}
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes fadeOut {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+.show {
+  animation: fadeIn 0.5s forwards; /* Fade in effect */
+}
+
+.hide {
+  animation: fadeOut 0.5s forwards; /* Fade out effect */
+}
+@media (max-width: 480px) {
+    body {
+        font-size: 14px; /* Adjust font size for smaller screens */
+    }
+
+    .container {
+        height: 50vh; /* Adjust height for smaller screens */
+    }
+
+    .game {
+        height: 80vmin; /* Adjust game size for smaller screens */
+        width: 80vmin; /* Adjust game size for smaller screens */
+    }
+
+    .box {
+        height: 20vmin; /* Adjust box size for smaller screens */
+        width: 20vmin; /* Adjust box size for smaller screens */
+        font-size: 6vmin; /* Adjust font size for smaller screens */
+    }
+
+    #reset-btn {
+        margin-top: -8px;
+        padding: 6px; /* Adjust padding for smaller screens */
+        font-size: 14px; /* Adjust font size for smaller screens */
+    }
+
+    .msg-container {
+      height: auto; /* Adjust height for smaller screens */
+      padding: 10px; /* Add some padding */
+    }
+  
+    #msg {
+      font-size: 1.5em; /* Increase font size for better readability */
+      text-align: center; /* Center the text */
+    }
+  
+    #new-btn {
+      padding: 12px; /* Increase padding for the button */
+      font-size: 1em; /* Adjust font size for the button */
+      width: 100%; /* Make the button full width */
+    }
+
+
+  }
+
+
+
+      </style>
     <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Anton&family=Itim&family=Lilita+One&family=Rubik+Wet+Paint&family=Spicy+Rice&family=Yuji+Mai&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="style.css" />
+   
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Tic Tac Toe</title>
@@ -35,3 +244,4 @@
     <script src="app.js"></script>
   </body>
 </html>
+
