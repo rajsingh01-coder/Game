@@ -1,322 +1,634 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tic Tac Toe - 3D</title>
     <style>
-* {
-  margin: 0;
-  padding: 0;
-}
-body {
-  background: rgb(72, 185, 15);
-  background: -moz-linear-gradient(
-    90deg,
-    rgba(73, 185, 15, 0.9641106442577031) 0%,
-    rgba(19, 200, 192, 0.7428221288515406) 78%
-  );
-  background: -webkit-linear-gradient(
-    90deg,
-    rgba(73, 185, 15, 0.9641106442577031) 0%,
-    rgba(19, 200, 192, 0.7428221288515406) 78%
-  );
-  background: linear-gradient(
-    90deg,
-    rgba(73, 185, 15, 0.9641106442577031) 0%,
-    rgba(19, 200, 192, 0.7428221288515406) 78%
-  );
-  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#49b90f",endColorstr="#13c8c0",GradientType=1);
-  text-align: center;
-}
-.container {
-  height: 70vh;
-  display: flex;
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-  justify-content: center;
-  align-items: center;
-}
-.game {
-  height: 60vmin;
-  width: 60vmin;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  align-items: center;
-  gap: 1.5vmin;
-}
-.box {
-  height: 18vmin;
-  width: 18vmin;
-  border-radius: 12px;
-  border: none;
-  
-  color: #b0413e;
-  font-size: 8vmin;
-  box-shadow: 0 0 1rem rgba(0, 0, 0, 0.1);
-}
-#reset-btn {
-  padding: 8px;
-  border: 1px solid black;
-  border-radius: 10px;
-  background-color: black;
-  color: white;
-  transition: 0.4s ease-in-out;
-}
-#reset-btn:hover {
-  background: rgb(73, 185, 15);
-  background: -moz-linear-gradient(
-    90deg,
-    rgba(73, 185, 15, 0.9641106442577031) 0%,
-    rgba(19, 200, 192, 0.7428221288515406) 78%
-  );
-  background: -webkit-linear-gradient(
-    90deg,
-    rgba(73, 185, 15, 0.9641106442577031) 0%,
-    rgba(19, 200, 192, 0.7428221288515406) 78%
-  );
-  background: linear-gradient(
-    90deg,
-    rgba(73, 185, 15, 0.9641106442577031) 0%,
-    rgba(19, 200, 192, 0.7428221288515406) 78%
-  );
-  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#49b90f",endColorstr="#13c8c0",GradientType=1);
-  color: black;
-  cursor: pointer;
-}
-#new-btn {
-  padding: 8px;
-  border: 1px solid black;
-  border-radius: 10px;
-  background-color: black;
-  color: white;
-  transition: 0.4s ease-in-out;
-  margin-top: 15px;
-}
-#new-btn:hover {
-  background: rgb(73, 185, 15);
-  background: -moz-linear-gradient(
-    90deg,
-    rgba(73, 185, 15, 0.9641106442577031) 0%,
-    rgba(19, 200, 192, 0.7428221288515406) 78%
-  );
-  background: -webkit-linear-gradient(
-    90deg,
-    rgba(73, 185, 15, 0.9641106442577031) 0%,
-    rgba(19, 200, 192, 0.7428221288515406) 78%
-  );
-  background: linear-gradient(
-    90deg,
-    rgba(73, 185, 15, 0.9641106442577031) 0%,
-    rgba(19, 200, 192, 0.7428221288515406) 78%
-  );
-  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#49b90f",endColorstr="#13c8c0",GradientType=1);
-  color: black;
-  cursor: pointer;
-}
-main h1 {
-    font-family: "Lilita One", serif;
-    font-weight: 400;
-    font-style: normal;
-    color: rgb(73,185,15);
-    color: -moz-linear-gradient(90deg, rgba(73,185,15,0.9641106442577031) 0%, rgba(19,200,192,0.7428221288515406) 78%);
-    color: -webkit-linear-gradient(90deg, rgba(73,185,15,0.9641106442577031) 0%, rgba(19,200,192,0.7428221288515406) 78%);
-    color: linear-gradient(90deg, rgba(73,185,15,0.9641106442577031) 0%, rgba(19,200,192,0.7428221288515406) 78%);
-filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#49b90f",endColorstr="#13c8c0",GradientType=1);
-}
-#msg {
-    color: rgb(73,185,15);
-    color: -moz-linear-gradient(90deg, rgba(73,185,15,0.9641106442577031) 0%, rgba(19,200,192,0.7428221288515406) 78%);
-    color: -webkit-linear-gradient(90deg, rgba(73,185,15,0.9641106442577031) 0%, rgba(19,200,192,0.7428221288515406) 78%);
-    color: linear-gradient(90deg, rgba(73,185,15,0.9641106442577031) 0%, rgba(19,200,192,0.7428221288515406) 78%);
-filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#49b90f",endColorstr="#13c8c0",GradientType=1);
-  
-  font-size: 5vmin;
-  font-family: sans-serif;
-}
-.msg-container {
-  height: 17vmin;
-}
-.hide {
-  display: none;
-}
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
-}
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
 
-@keyframes fadeOut {
-  from {
-    opacity: 1;
-  }
-  to {
-    opacity: 0;
-  }
-}
+        .main-container {
+            width: 100%;
+            max-width: 500px;
+        }
 
-.show {
-  animation: fadeIn 0.5s forwards; /* Fade in effect */
-}
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+            color: white;
+        }
 
-.hide {
-  animation: fadeOut 0.5s forwards; /* Fade out effect */
-}
-@media (max-width: 480px) {
-    body {
-        font-size: 14px; /* Adjust font size for smaller screens */
-    }
+        .header h1 {
+            font-size: 3.5rem;
+            font-weight: 800;
+            margin-bottom: 10px;
+            text-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+            letter-spacing: -1px;
+        }
 
-    .container {
-        height: 50vh; /* Adjust height for smaller screens */
-    }
+        .players-info {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 20px;
+            margin-bottom: 30px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+        }
 
-    .game {
-        height: 80vmin; /* Adjust game size for smaller screens */
-        width: 80vmin; /* Adjust game size for smaller screens */
-    }
+        .player {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+            flex: 1;
+        }
 
-    .box {
-        height: 20vmin; /* Adjust box size for smaller screens */
-        width: 20vmin; /* Adjust box size for smaller screens */
-        font-size: 6vmin; /* Adjust font size for smaller screens */
-    }
+        .player-avatar {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 32px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s ease;
+        }
 
-    #reset-btn {
-        margin-top: -8px;
-        padding: 6px; /* Adjust padding for smaller screens */
-        font-size: 14px; /* Adjust font size for smaller screens */
-    }
+        .player-o {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border: 3px solid #fff;
+        }
 
-    .msg-container {
-      height: auto; /* Adjust height for smaller screens */
-      padding: 10px; /* Add some padding */
-    }
-  
-    #msg {
-      font-size: 1.5em; /* Increase font size for better readability */
-      text-align: center; /* Center the text */
-    }
-  
-    #new-btn {
-      padding: 12px; /* Increase padding for the button */
-      font-size: 1em; /* Adjust font size for the button */
-      width: 100%; /* Make the button full width */
-    }
+        .player-x {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            border: 3px solid #fff;
+        }
 
+        .player.active .player-avatar {
+            transform: scale(1.15);
+            box-shadow: 0 8px 25px rgba(255, 255, 255, 0.5);
+        }
 
-  }
+        .player-name {
+            color: white;
+            font-weight: 600;
+            font-size: 0.95rem;
+        }
 
+        .player-status {
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 0.85rem;
+        }
 
+        .game-board {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 25px;
+            padding: 20px;
+            margin-bottom: 25px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(10px);
+        }
 
-      </style>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Anton&family=Itim&family=Lilita+One&family=Rubik+Wet+Paint&family=Spicy+Rice&family=Yuji+Mai&display=swap" rel="stylesheet">
-   
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Tic Tac Toe</title>
-  </head>
-  <body>
-    <div class="msg-container hide">
-        <p id="msg">Winner</p>
-        <button id="new-btn">New Game</button>
+        .board {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 12px;
+            margin-bottom: 20px;
+        }
 
-    </div>
-    <main>
-      <h1>Tic Tac Toe</h1>
-      <div class="container">
-        <div class="game">
-          <button class="box"></button>
-          <button class="box"></button>
-          <button class="box"></button>
-          <button class="box"></button>
-          <button class="box"></button>
-          <button class="box"></button>
-          <button class="box"></button>
-          <button class="box"></button>
-          <button class="box"></button>
+        .box {
+            width: 100%;
+            aspect-ratio: 1;
+            border: none;
+            border-radius: 18px;
+            font-size: 3.5rem;
+            font-weight: 800;
+            cursor: pointer;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1), inset 0 -4px 10px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+            color: transparent;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .box::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.8) 0%, rgba(255, 255, 255, 0) 100%);
+            pointer-events: none;
+        }
+
+        .box:hover:not(:disabled) {
+            transform: translateY(-8px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2), inset 0 -4px 10px rgba(0, 0, 0, 0.05);
+        }
+
+        .box:active:not(:disabled) {
+            transform: translateY(-3px);
+        }
+
+        .box:disabled {
+            cursor: not-allowed;
+            opacity: 0.95;
+        }
+
+        .box.o-mark {
+            color: #667eea;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            box-shadow: 0 8px 20px rgba(102, 126, 234, 0.4), inset 0 -4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .box.x-mark {
+            color: #f5576c;
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            box-shadow: 0 8px 20px rgba(245, 87, 108, 0.4), inset 0 -4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .controls {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        button.btn {
+            padding: 14px 32px;
+            border: none;
+            border-radius: 12px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .btn-reset {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            flex: 1;
+            min-width: 150px;
+        }
+
+        .btn-reset:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.4);
+        }
+
+        .btn-reset:active {
+            transform: translateY(-1px);
+        }
+
+        .winner-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.6);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            backdrop-filter: blur(5px);
+            animation: fadeIn 0.3s ease;
+        }
+
+        .winner-modal.show {
+            display: flex;
+        }
+
+        .modal-content {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 30px;
+            padding: 50px 40px;
+            text-align: center;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            animation: slideUp 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+            max-width: 90%;
+        }
+
+        .modal-content h2 {
+            color: white;
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            text-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .modal-content p {
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 1.2rem;
+            margin-bottom: 30px;
+        }
+
+        .winner-icon {
+            font-size: 4rem;
+            margin-bottom: 20px;
+            animation: bounce 0.6s ease infinite;
+        }
+
+        .btn-new {
+            background: white;
+            color: #667eea;
+            font-weight: 700;
+            padding: 16px 40px;
+            border-radius: 12px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+        }
+
+        .btn-new:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 35px rgba(0, 0, 0, 0.3);
+        }
+
+        .btn-new:active {
+            transform: translateY(-1px);
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes bounce {
+            0%, 100% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.1);
+            }
+        }
+
+        @media (max-width: 600px) {
+            .header h1 {
+                font-size: 2.8rem;
+            }
+
+            .players-info {
+                padding: 16px;
+                margin-bottom: 25px;
+            }
+
+            .player-avatar {
+                width: 50px;
+                height: 50px;
+                font-size: 26px;
+            }
+
+            .player-name {
+                font-size: 0.85rem;
+            }
+
+            .game-board {
+                padding: 16px;
+                margin-bottom: 20px;
+            }
+
+            .board {
+                gap: 10px;
+            }
+
+            .box {
+                font-size: 2.8rem;
+                border-radius: 15px;
+            }
+
+            .controls {
+                gap: 10px;
+            }
+
+            .btn-reset {
+                padding: 12px 24px;
+                font-size: 0.9rem;
+                min-width: 120px;
+            }
+
+            .modal-content {
+                padding: 40px 30px;
+                margin: 20px;
+            }
+
+            .modal-content h2 {
+                font-size: 2rem;
+            }
+
+            .modal-content p {
+                font-size: 1rem;
+            }
+
+            .winner-icon {
+                font-size: 3rem;
+            }
+
+            .btn-new {
+                padding: 14px 30px;
+                font-size: 0.95rem;
+            }
+        }
+
+        @media (max-width: 400px) {
+            .header h1 {
+                font-size: 2.2rem;
+                margin-bottom: 15px;
+            }
+
+            .players-info {
+                padding: 12px;
+                gap: 10px;
+            }
+
+            .player-avatar {
+                width: 45px;
+                height: 45px;
+                font-size: 22px;
+            }
+
+            .player-name {
+                font-size: 0.75rem;
+            }
+
+            .player-status {
+                font-size: 0.7rem;
+            }
+
+            .game-board {
+                padding: 12px;
+            }
+
+            .board {
+                gap: 8px;
+            }
+
+            .box {
+                font-size: 2.2rem;
+                border-radius: 12px;
+            }
+
+            .btn-reset {
+                padding: 10px 20px;
+                font-size: 0.85rem;
+                min-width: 100px;
+            }
+
+            .modal-content {
+                padding: 30px 20px;
+            }
+
+            .modal-content h2 {
+                font-size: 1.6rem;
+                margin-bottom: 15px;
+            }
+
+            .modal-content p {
+                font-size: 0.95rem;
+                margin-bottom: 20px;
+            }
+
+            .winner-icon {
+                font-size: 2.5rem;
+                margin-bottom: 15px;
+            }
+
+            .btn-new {
+                padding: 12px 25px;
+                font-size: 0.9rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="main-container">
+        <div class="header">
+            <h1>TIC TAC TOE</h1>
         </div>
-      </div>
-      <button id="reset-btn">Reset Game</button>
-    </main>
+
+        <div class="players-info">
+            <div class="player active" id="playerO">
+                <div class="player-avatar player-o">O</div>
+                <div class="player-name">Player 1</div>
+                <div class="player-status">Your Turn</div>
+            </div>
+            <div class="player" id="playerX">
+                <div class="player-avatar player-x">X</div>
+                <div class="player-name">Player 2</div>
+                <div class="player-status">Waiting</div>
+            </div>
+        </div>
+
+        <div class="game-board">
+            <div class="board" id="board">
+                <button class="box" data-index="0"></button>
+                <button class="box" data-index="1"></button>
+                <button class="box" data-index="2"></button>
+                <button class="box" data-index="3"></button>
+                <button class="box" data-index="4"></button>
+                <button class="box" data-index="5"></button>
+                <button class="box" data-index="6"></button>
+                <button class="box" data-index="7"></button>
+                <button class="box" data-index="8"></button>
+            </div>
+
+            <div class="controls">
+                <button class="btn btn-reset" id="resetBtn">Reset Game</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="winner-modal" id="winnerModal">
+        <div class="modal-content">
+            <div class="winner-icon" id="winnerIcon">🎉</div>
+            <h2 id="winnerText">Player 1 Wins!</h2>
+            <p>Congratulations on your victory!</p>
+            <button class="btn btn-new" id="newGameBtn">Play Again</button>
+        </div>
+    </div>
+
     <script>
+        const board = document.getElementById('board');
+        const boxes = document.querySelectorAll('.box');
+        const resetBtn = document.getElementById('resetBtn');
+        const newGameBtn = document.getElementById('newGameBtn');
+        const winnerModal = document.getElementById('winnerModal');
+        const playerO = document.getElementById('playerO');
+        const playerX = document.getElementById('playerX');
 
-      
-let boxes = document.querySelectorAll(".box"); // Select all boxes
-let resetbtn = document.querySelector("#reset-btn");
-let newGameBtn = document.querySelector("#new-btn");
-let msgContainer = document.querySelector(".msg-container");
-let msg = document.querySelector("#msg");
+        let turnO = true;
+        let gameActive = true;
 
-let turnO = true; // Initialize the turnO variable
+        // Sound effects using Web Audio API
+        const audioContext = new (window.AudioContext || window.webkitAudioContext)();
 
-let winPatterns = [
-    [0, 1, 2],
-    [0, 3, 6],
-    [0, 4, 8],
-    [1, 4, 7],
-    [2, 5, 8],
-    [2, 4, 6],
-    [3, 4, 5],
-    [6, 7, 8],
-];
+        function playClickSound() {
+            const now = audioContext.currentTime;
+            const osc = audioContext.createOscillator();
+            const gain = audioContext.createGain();
 
-boxes.forEach((box) => {
-    box.addEventListener("click", () => {
-        console.log("box was clicked");
-        if (box.innerText === "") { // Check if the box is empty
+            osc.connect(gain);
+            gain.connect(audioContext.destination);
+
+            osc.frequency.setValueAtTime(800, now);
+            osc.frequency.exponentialRampToValueAtTime(400, now + 0.1);
+            
+            gain.gain.setValueAtTime(0.3, now);
+            gain.gain.exponentialRampToValueAtTime(0.01, now + 0.1);
+
+            osc.start(now);
+            osc.stop(now + 0.1);
+        }
+
+        function playWinSound() {
+            const now = audioContext.currentTime;
+            const notes = [523.25, 659.25, 783.99]; // C, E, G notes
+
+            notes.forEach((freq, index) => {
+                const osc = audioContext.createOscillator();
+                const gain = audioContext.createGain();
+
+                osc.connect(gain);
+                gain.connect(audioContext.destination);
+
+                osc.frequency.setValueAtTime(freq, now);
+                
+                gain.gain.setValueAtTime(0, now);
+                gain.gain.linearRampToValueAtTime(0.3, now + 0.1);
+                gain.gain.exponentialRampToValueAtTime(0.01, now + 0.5);
+
+                osc.start(now + index * 0.15);
+                osc.stop(now + index * 0.15 + 0.5);
+            });
+        }
+
+        const winPatterns = [
+            [0, 1, 2],
+            [3, 4, 5],
+            [6, 7, 8],
+            [0, 3, 6],
+            [1, 4, 7],
+            [2, 5, 8],
+            [0, 4, 8],
+            [2, 4, 6],
+        ];
+
+        boxes.forEach((box) => {
+            box.addEventListener('click', () => {
+                if (box.innerText === '' && gameActive) {
+                    playClickSound();
+                    
+                    box.innerText = turnO ? 'O' : 'X';
+                    box.classList.add(turnO ? 'o-mark' : 'x-mark');
+                    box.disabled = true;
+
+                    updatePlayerStatus();
+
+                    if (checkWinner()) {
+                        playWinSound();
+                        showWinner(turnO ? 'Player 1' : 'Player 2', turnO ? 'O' : 'X');
+                        gameActive = false;
+                    } else if ([...boxes].every(b => b.innerText !== '')) {
+                        playWinSound();
+                        showDraw();
+                        gameActive = false;
+                    }
+
+                    turnO = !turnO;
+                }
+            });
+        });
+
+        function updatePlayerStatus() {
             if (turnO) {
-                box.innerText = "O";
-                turnO = false;
+                playerO.classList.add('active');
+                playerX.classList.remove('active');
+                playerO.querySelector('.player-status').innerText = 'Your Turn';
+                playerX.querySelector('.player-status').innerText = 'Waiting';
             } else {
-                box.innerText = "X";
-                turnO = true;
-            }
-            checkWinner(); // Check for a winner after each move
-        }
-    });
-});
-
-const showWinner = (winner) => {
-    msg.innerText = `Congratulations, ${winner} is Winner `; // Update the message
-    msgContainer.classList.remove("hide"); // Show the message container
-    msgContainer.classList.add("show"); // Add the show class for animation
-}
-
-const checkWinner = () => {
-    for (let pattern of winPatterns) {
-        let pos1Val = boxes[pattern[0]].innerText;
-        let pos1Va2 = boxes[pattern[1]].innerText;
-        let pos1Va3 = boxes[pattern[2]].innerText;
-
-        if (pos1Val !== "" && pos1Va2 !== "" && pos1Va3 !== "") {
-            if (pos1Val === pos1Va2 && pos1Va2 === pos1Va3) {
-                console.log("winner, pos1Val");
-                showWinner(pos1Val); // Show the winner
-                return; // Exit the function after finding a winner
+                playerX.classList.add('active');
+                playerO.classList.remove('active');
+                playerX.querySelector('.player-status').innerText = 'Your Turn';
+                playerO.querySelector('.player-status').innerText = 'Waiting';
             }
         }
-    }
-};
 
+        function checkWinner() {
+            for (let pattern of winPatterns) {
+                const [a, b, c] = pattern;
+                if (boxes[a].innerText && boxes[a].innerText === boxes[b].innerText && boxes[b].innerText === boxes[c].innerText) {
+                    return true;
+                }
+            }
+            return false;
+        }
 
+        function showWinner(playerName, mark) {
+            const icon = mark === 'O' ? '🌟' : '⭐';
+            document.getElementById('winnerIcon').innerText = icon;
+            document.getElementById('winnerText').innerText = `${playerName} Wins!`;
+            winnerModal.classList.add('show');
+        }
 
-const resetGame = () => {
-    boxes.forEach((box) => {
-        box.innerText = ""; // Clear the box
-    });
-    msgContainer.classList.remove("show"); // Remove the show class
-    msgContainer.classList.add("hide"); // Add the hide class
-    turnO = true; // Reset the turn
-};
+        function showDraw() {
+            document.getElementById('winnerIcon').innerText = '🤝';
+            document.getElementById('winnerText').innerText = "It's a Draw!";
+            winnerModal.classList.add('show');
+        }
 
-resetbtn.addEventListener("click", resetGame);
-newGameBtn.addEventListener("click", resetGame);
+        function resetGame() {
+            boxes.forEach((box) => {
+                box.innerText = '';
+                box.classList.remove('o-mark', 'x-mark');
+                box.disabled = false;
+            });
+            turnO = true;
+            gameActive = true;
+            winnerModal.classList.remove('show');
+            playerO.classList.add('active');
+            playerX.classList.remove('active');
+            playerO.querySelector('.player-status').innerText = 'Your Turn';
+            playerX.querySelector('.player-status').innerText = 'Waiting';
+        }
+
+        resetBtn.addEventListener('click', resetGame);
+        newGameBtn.addEventListener('click', resetGame);
     </script>
-  </body>
+</body>
 </html>
-
-
-
